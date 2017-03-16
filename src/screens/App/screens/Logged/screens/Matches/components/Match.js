@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import CSSModules from 'react-css-modules'
 import autobind from 'autobind-decorator'
 import cx from 'classnames'
+import _ from 'lodash';
 import { Link } from 'react-router'
 import { observer } from 'mobx-react'
 import Data from 'data'
@@ -10,14 +11,6 @@ import styles from './Match.scss'
 @observer
 @CSSModules(styles)
 export default class Match extends Component {
-  constructor(props) {
-    super(props)
-
-    if (window.Raven && !props.match.user.name) {
-      Raven.captureMessage('no match data')
-    }
-  }
-
   @autobind
   remove() {
     Data.db().matches.where('_id').equals(this.props.match.id).delete()
@@ -84,13 +77,15 @@ export default class Match extends Component {
       blocked: match.isBlocked,
     })
 
+    const user = _.get(match, 'user', {});
+
     return (
       <Link to={`/matches/${match.id}`} styleName="match" className={className} activeClassName="active">
         <div styleName="type-icon">{this.renderTypeIcon()}</div>
         <div styleName="avatar">
-          <img src={match.user.mainPhoto} />
+          <img src={user.mainPhoto} />
         </div>
-        <div styleName="name">{match.user.name}, {match.user.age}</div>
+        <div styleName="name">{user.name}, {user.age}</div>
         <div styleName="message">
           <span>{this.renderIcon()} {this.renderLastMessageContent()}</span>
           <div styleName="date">{match.ago}</div>

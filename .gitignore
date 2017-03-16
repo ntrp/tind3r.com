@@ -6,3 +6,4 @@ static/*.js
 static/*.js.map
 vendor-manifest.json
 assets.json
+.vscode
