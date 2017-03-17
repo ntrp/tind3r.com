@@ -20,6 +20,8 @@ const RangeT = Slider.createSliderWithTooltip(Range)
 export default class User extends Component {
   @observable isSaving = false
 
+  circle = null;
+
   constructor(props) {
     super(props)
 
@@ -43,6 +45,7 @@ export default class User extends Component {
     const { currentUser } = this.props
 
     currentUser.distance_filter = kmToMi(value)
+    this.forceUpdate()
   }
 
   @autobind
@@ -60,6 +63,30 @@ export default class User extends Component {
 
   render() {
     const { currentUser } = this.props
+    const center = [currentUser.pos.lat, currentUser.pos.lon]
+    const km = miToKm(currentUser.distance_filter)
+    
+    const circle = (map, maps) => {
+      if (this.circle) {
+        this.circle.setMap(null);
+        this.circle = null;
+      }
+
+      this.circle = new maps.Circle({
+        strokeColor: '#FF0000',
+        strokeOpacity: 0.8,
+        strokeWeight: 2,
+        fillColor: '#FF0000',
+        fillOpacity: 0.35,
+        map,
+        center: map.center,
+        radius: km * 1000,
+      })
+    }
+
+    if (this.circle) {
+      this.circle.setRadius(km * 1000)
+    }
 
     return (
       <div styleName="container" className="main-wrapper">
@@ -72,7 +99,7 @@ export default class User extends Component {
                   <RCSlider
                     min={2}
                     max={160}
-                    defaultValue={miToKm(currentUser.distance_filter) || 0}
+                    defaultValue={km || 0}
                     onAfterChange={this.handleDistanceChange}
                     tipFormatter={v => `${v} KM`}
                   />
@@ -110,8 +137,9 @@ export default class User extends Component {
             !!currentUser.pos.lat &&
             <GoogleMap
               bootstrapURLKeys={{ key: 'AIzaSyDd3XG700RoXgHsnnu53gMz13gO8SOWqZc' }}
-              center={[currentUser.pos.lat, currentUser.pos.lon]}
+              center={center}
               zoom={12}
+              onGoogleApiLoaded={({ map, maps }) => circle(map, maps)}
             >
               <Marker lat={currentUser.pos.lat} lng={currentUser.pos.lon} />
             </GoogleMap>

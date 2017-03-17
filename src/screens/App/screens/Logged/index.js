@@ -96,6 +96,10 @@ export default class App extends Component {
       name: currentUser.name,
     }
 
+    if (window.JacoRecorder) {
+      window.JacoRecorder.identify(user.user_id, function callback(err){});
+    }
+
     return (
       <div>
         <div>
