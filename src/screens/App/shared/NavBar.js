@@ -34,9 +34,9 @@ export default class NavBar extends Component {
       <div styleName="nav-bar">
         <ul>
           <li>
-            <div styleName="logo">
+            <Link to="/home" styleName="logo">
               <div className="logo-m-white" />
-            </div>
+            </Link>
           </li>
           <li>
             <Link to="/home" activeClassName="active">

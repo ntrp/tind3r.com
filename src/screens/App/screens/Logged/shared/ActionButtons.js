@@ -175,8 +175,6 @@ export default class ActionButtons extends Component {
       if (resp.match) {
         this.showAlert()
 
-        this.isMatch = true
-
         ReactGA.event({
           category: 'User',
           action: 'Like',
@@ -240,8 +238,6 @@ export default class ActionButtons extends Component {
 
       if (resp.match) {
         this.showAlert()
-
-        this.isMatch = true
 
         ReactGA.event({
           category: 'User',
