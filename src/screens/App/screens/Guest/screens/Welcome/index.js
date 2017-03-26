@@ -91,6 +91,15 @@ export default class Welcome extends Component {
       <div styleName="intro">
         <h1>Welcome to tind3r.com - unofficial Tinder web client you fall in love!</h1>
 
+        <div styleName="google-policy">
+          <h1>
+            It seems that Google blocked my extension due to Chrome Web Store Policies.
+            <br/>
+            I am trying to find workaround for this policy. Not sure if this is possible :(
+          </h1>
+          <h4>If you have already downloaded extension before you're a lucky man! Dont remove it.</h4>
+        </div>
+
         <div styleName="features">
           <Slider autoplay autoplaySpeed={4000} pauseOnHover>
             {_.map(introPhotos, image => (
@@ -118,20 +127,6 @@ export default class Welcome extends Component {
           {this.renderIntro()}
           <div styleName="content">
             <h3>To be able to use tind3r.com you must download Chrome Extension from web store here:</h3>
-            <a
-              target="_blank"
-              href="https://chrome.google.com/webstore/detail/tnder-tind3r-tinder-web-c/iopleohdgiomebidpblllpaigodfhoia"
-            >
-              <img src="https://developer.chrome.com/webstore/images/ChromeWebStore_Badge_v2_340x96.png" alt="Download" />
-            </a>
-            <p>
-              Why do I need this? <br />
-              To be able to comunicate with official Tinder Service.
-            </p>
-
-            <h4>
-              When installation is complete you are free to use web client!
-            </h4>
           </div>
         </div>
       )
