@@ -1,1 +1,5 @@
-export const EXT_ID = process.env.NODE_ENV === 'production' ? 'iopleohdgiomebidpblllpaigodfhoia' : 'iopleohdgiomebidpblllpaigodfhoia'
+const getExtId = () => (
+  localStorage.getItem('ext_id') || 'iopleohdgiomebidpblllpaigodfhoia'
+)
+
+export const EXT_ID = getExtId();
