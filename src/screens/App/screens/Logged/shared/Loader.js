@@ -4,7 +4,7 @@ import CSSModules from 'react-css-modules';
 import _ from 'lodash'
 import styles from './Loader.scss'
 
-export default inject('currentUser')(observer(CSSModules(({ currentUser, isSimpleLoader, noAnimation }) => {
+export default inject('currentUser')(observer(CSSModules(({ currentUser, isSimpleLoader, noAnimation, percent }) => {
   const pulse = (
     currentUser.photos ? <img src={currentUser.photos[0].url} alt="avatar" /> : null
   )
@@ -21,7 +21,13 @@ export default inject('currentUser')(observer(CSSModules(({ currentUser, isSimpl
         </div>}
       </div>}
 
-      {isSimpleLoader && <div styleName="simple-loader" />}
+      {
+        isSimpleLoader &&
+        <div styleName="percent">
+          <div styleName="simple-loader" />
+          <span>{percent}%</span>
+        </div>
+      }
     </div>
   )
 }, styles)))

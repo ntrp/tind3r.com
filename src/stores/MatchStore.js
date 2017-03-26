@@ -9,7 +9,7 @@ class MatchStore {
   @observable isCharging = true;
   @observable activeFilter = null;
 
-  matchesProcessed = 0
+  @observable matchesProcessed = 0
 
   constructor() {
     this.fetchFromRemote()
@@ -123,6 +123,10 @@ class MatchStore {
       default:
         return this.matches
     }
+  }
+
+  @computed get loadedPercentage() {
+    return parseInt((this.matchesProcessed / this.matches.length) * 100, 10) || 0;
   }
 }
 

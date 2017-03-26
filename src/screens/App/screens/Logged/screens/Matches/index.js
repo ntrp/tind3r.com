@@ -208,13 +208,20 @@ export default class Matches extends Component {
               />
             </div>
           </div>}
-          {this.matchStore.isLoading && <Loader isSimpleLoader />}
+          {
+            this.matchStore.isLoading &&
+            <div styleName="progress">
+              <div styleName="progress-bar" style={{ width: this.matchStore.loadedPercentage + '%' }} />
+              {!!this.matchStore.loadedPercentage && <span>{`${this.matchStore.loadedPercentage}%`}
+              ({this.matchStore.matchesProcessed} / {this.matchStore.matches.length})</span>}
+            </div>
+          }
           {!this.matchStore.isLoading && _.map(this.list, match => (
             <Match key={match.id} match={match} />
           ))}
         </div>
         <div styleName="messages">
-          {this.props.children && React.cloneElement(this.props.children, {
+          {!this.matchStore.isLoading && this.props.children && React.cloneElement(this.props.children, {
             matchStore: this.matchStore,
           })}
         </div>

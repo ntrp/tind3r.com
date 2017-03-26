@@ -102,3 +102,30 @@
     }
   }
 }
+
+.progress {
+  width: 90%;
+  height: 25px;
+  background: $bg;
+  margin: 20px auto;
+  overflow: hidden;
+  position: relative;
+
+  .progress-bar {
+    height: 25px;
+    background: $blue;
+    left: 0;
+    position: absolute;
+    top: 0;
+  }
+
+  span {
+    position: absolute;
+    z-index: 1;
+    color: #fff;
+    display: block;
+    top: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
