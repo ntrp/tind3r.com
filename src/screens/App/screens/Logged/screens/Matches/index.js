@@ -212,8 +212,8 @@ export default class Matches extends Component {
             this.matchStore.isLoading &&
             <div styleName="progress">
               <div styleName="progress-bar" style={{ width: this.matchStore.loadedPercentage + '%' }} />
-              {!!this.matchStore.loadedPercentage && <span>{`${this.matchStore.loadedPercentage}%`}
-              ({this.matchStore.matchesProcessed} / {this.matchStore.matches.length})</span>}
+              <span>{`${this.matchStore.loadedPercentage}%`}
+              ({this.matchStore.matchesProcessed} / {this.matchStore.matches.length})</span>
             </div>
           }
           {!this.matchStore.isLoading && _.map(this.list, match => (
@@ -224,6 +224,7 @@ export default class Matches extends Component {
           {!this.matchStore.isLoading && this.props.children && React.cloneElement(this.props.children, {
             matchStore: this.matchStore,
           })}
+          {!this.props.children && <h1>If you have any problem with your matches (not loading etc) try to logout and login again.</h1>}
         </div>
       </div>
     );
